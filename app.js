@@ -1,9 +1,5 @@
 //TODO
-var GrocceryList = () => (
-		<span>
-		  <GrocceryListItems items = {['this', 'that', 'the other']}/>
-		</span>
-)
+
 
 // var Kittens = () => (
 //   <ul>kittens</ul>
@@ -30,49 +26,41 @@ var GrocceryList = () => (
 class GrocceryListItems extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      done: false
+    };
   }
+
+  onHoverListItem() {
+    this.setState({
+      done: !this.state.done
+    })
+  }      
+
+
   render() {
+    var style = {
+      fontWeight: this.state.done ? 'bold' : 'normal'
+    };
+
     return (
-      <li>{this.props.items}</li>
+          <li style={style} onMouseOver={this.onHoverListItem.bind(this)}>{this.props.item}</li>
+      
     );
   }
 }
-// var GrocceryListItems = (props) => (
-//   <ul>
-//     {props.items.map(item =>
-//       <GrocceryListItems items = {items} />
-//     )}
-//   </ul>
-// )
 
-// class TodoListItem extends React.Component {
-//   constructor(props) {
-//     super(props);
-//   }
-//   render() {
-//     return (
-//       <li>{this.props.todo}</li>
-//     );
-//   }
-// }
+var GrocceryList = (props) => (
+  <ul>
+    {props.items.map(item =>
+      <GrocceryListItems item={item} />
+    )}
+  </ul>
+);
 
-// var TodoList = (props) => (
-//   <ul>
-//     {props.todos.map(todo =>
-//       <TodoListItem todo={todo} />
-//     )}
-//   </ul>
-// );
-
-
-
-
-ReactDOM.render(<GrocceryList />, document.getElementById("app"));
-
-// var TodoList = (props) => (
-//   <ul>
-//     {props.todos.map(todo =>
-//       <TodoListItem todo={todo} />
-//     )}
-//   </ul>
-// );
+var App = () => (
+    <span>
+      <GrocceryList items = {['this', 'that', 'the other']}/>
+    </span>
+)
+ReactDOM.render(<App />, document.getElementById("app"));
